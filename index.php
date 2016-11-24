@@ -300,19 +300,19 @@ function MeasureConnectionSpeed() {
 <head/>
 <body>
 <div id="out"></div>
-<table id="GeoResults"></table>
+<div id="GeoResults"></div>
 <div id="progress">JavaScript is turned off, or your browser is realllllly slow</div>
 <script type="text/javascript">
-document.getElementById("loc").innerHTML = locationPin;
-document.getElementById("out").innerHTML = data;
 
-$.getJSON("//ip-api.com/json/?callback=?", function(data) {
-            var table_body = "";
-            $.each(data, function(k, v) {
-                table_body += "<tr><td>" + k + "</td><td><b>" + v + "</b></td></tr>";
-            });
-            $("#GeoResults").html(table_body);
-        });
+
+var geoip = new XMLHttpRequest();
+			geoip.open('GET', "http://ip-api.com/json/", true);
+			geoip.responseType = 'json';
+			geoip.onload = function(e) {
+			var GeoResults = document.createElement('GeoResults');
+			document.body.appendChild(GeoResults);
+			};
+			geoip.send();
 </script>
 </body>
 </html>
