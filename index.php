@@ -306,7 +306,7 @@ function MeasureConnectionSpeed() {
 document.getElementById("loc").innerHTML = locationPin;
 document.getElementById("out").innerHTML = data;
 
- $.getJSON("http://ip-api.com/json/?callback=?", function(data) {
+$.getJSON("//ip-api.com/json/?callback=?", function(data) {
             var table_body = "";
             $.each(data, function(k, v) {
                 table_body += "<tr><td>" + k + "</td><td><b>" + v + "</b></td></tr>";
