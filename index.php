@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript">
 /**
@@ -293,20 +294,25 @@ function MeasureConnectionSpeed() {
 }
 	
 
-var locationPin = "";
-$.getJSON('//ip-api.com/json?callback=?', function(data) {
-  locationPin = JSON.stringify(data, null, 2);
-});	
+
 
 </script>
 <head/>
 <body>
 <div id="out"></div>
-<div id="loc"></div>
+<table id="GeoResults"></table>
 <div id="progress">JavaScript is turned off, or your browser is realllllly slow</div>
 <script type="text/javascript">
 document.getElementById("loc").innerHTML = locationPin;
 document.getElementById("out").innerHTML = data;
+
+ $.getJSON("http://ip-api.com/json/?callback=?", function(data) {
+            var table_body = "";
+            $.each(data, function(k, v) {
+                table_body += "<tr><td>" + k + "</td><td><b>" + v + "</b></td></tr>";
+            });
+            $("#GeoResults").html(table_body);
+        });
 </script>
 </body>
 </html>
