@@ -194,14 +194,14 @@
 
 
 
-var data = 'OS: ' + jscd.os +' '+ jscd.osVersion + '<br>' +
-    'Browser: ' + jscd.browser +' '+ jscd.browserMajorVersion +
+var data = '<b>OS: </b>' + jscd.os +' '+ jscd.osVersion + '<br>' +
+    '<b>Browser: </b>' + jscd.browser +' '+ jscd.browserMajorVersion +
       ' (' + jscd.browserVersion + ')<br>' + 
-    'Mobile: ' + jscd.mobile + '<br>' +
-    'Flash: ' + jscd.flashVersion + '<br>' +
-    'Cookies: ' + jscd.cookies + '<br>' +
-    'Screen Size: ' + jscd.screen + '<br><br>' +
-    'Full User Agent: ' + navigator.userAgent + '<br><br>';
+    '<b>Mobile: </b>' + jscd.mobile + '<br>' +
+    '<b>Flash: </b>' + jscd.flashVersion + '<br>' +
+    '<b>Cookies: </b>' + jscd.cookies + '<br>' +
+    '<b>Screen Size: </b>' + jscd.screen + '<br><br>' +
+    '<b>Full User Agent: </b>' + navigator.userAgent + '<br><br>';
 	
 //JUST AN EXAMPLE, PLEASE USE YOUR OWN PICTURE!
 var imageAddr = "https://cdn.dimsum.my/content/2016-10/2854-580f2e7b15c21/AABQR01HM_MZ_e4c66754_identifier-6_video_track_0.mp4"; 
@@ -226,7 +226,7 @@ function ShowProgressMessage(msg) {
 }
 
 function InitiateSpeedDetection() {
-    ShowProgressMessage("Loading the image, please wait...");
+    ShowProgressMessage("<br><br> Getting bandwidth stream at 8MB, please wait...");
     window.setTimeout(MeasureConnectionSpeed, 5);
 };    
 
@@ -241,7 +241,7 @@ function MeasureConnectionSpeed() {
 	
 	
 	var xhr = new XMLHttpRequest();
-			xhr.open('GET', imageAddr + "?nnn=" + (new Date()).getTime(), true);
+			xhr.open('GET', imageAddr + "?cacheBuster=" + (new Date()).getTime(), true);
 			xhr.responseType = 'blob';
 			xhr.setRequestHeader('Range', 'bytes=3041087856-3050323149');
 			xhr.onload = function(e) {
@@ -285,7 +285,7 @@ function MeasureConnectionSpeed() {
         var speedKbps = (speedBps / 1024).toFixed(2);
         var speedMbps = (speedKbps / 1024).toFixed(2);
         ShowProgressMessage([
-            "Your connection speed is:", 
+            "<br/><br/><b>Internet Speed:</b>", 
             speedBps + " bps", 
             speedKbps + " kbps", 
             speedMbps + " Mbps"
@@ -300,19 +300,29 @@ function MeasureConnectionSpeed() {
 <head/>
 <body>
 <div id="out"></div>
-<div id="GeoResults"></div>
+<div id="geo"></div>
 <div id="progress">JavaScript is turned off, or your browser is realllllly slow</div>
 <script type="text/javascript">
+document.getElementById("out").innerHTML = data;
 
 
 var geoip = new XMLHttpRequest();
-			geoip.open('GET', "http://ip-api.com/json/", true);
-			geoip.responseType = 'json';
-			geoip.onload = function(e) {
-			var GeoResults = document.createElement('GeoResults');
-			document.body.appendChild(GeoResults);
-			};
-			geoip.send();
+	geoip.open('GET', "http://ip-api.com/json/", true);
+	
+	geoip.onreadystatechange = function() {
+		var status;
+		var data;
+		if (geoip.readyState == 4) { // `DONE`
+			status = geoip.status;
+			if (status == 200) {
+				document.getElementById("geo").innerHTML = '<b>Geo Data:</b>' + geoip.responseText;
+				//successHandler && successHandler(data);
+			} else {
+				//errorHandler && errorHandler(status);
+			}
+		}
+	};
+	geoip.send();
 </script>
 </body>
 </html>

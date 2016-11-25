@@ -1,0 +1,24 @@
+{
+  "name": "dimsumdiag",
+  "description": "Remote Analyzing Tool",
+  "main": "app.js",
+  "keywords": [
+    "tool"
+  ],
+  "authors": [
+    "izzuddin noor"
+  ],
+  "license": "MIT",
+  "homepage": "diag.dimsum.my",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
